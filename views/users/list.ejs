@@ -1,0 +1,65 @@
+<% layout('layouts/boilerplate') -%>
+
+<h1>My List</h1>
+
+<div>
+    <% for(let pet of pets) {%>
+      <div class="card" mb-3>
+        <div class="row">
+          <div class="col-md-4">
+            <% if(pet.status === "adopted"){ %>
+              <div class="image-container">
+                <img class="img-fluid" crossorigin="anonymous" src="<%= pet.images[0].url%>" style = "filter:blur(0.3rem)">
+                <div class="overlay-text">Adopted</div>
+              </div>
+              <% }else if(pet.status == "pending"){ %>
+                <div class="image-container">
+                  <img class="img-fluid" crossorigin="anonymous" src="<%= pet.images[0].url%>" style = "filter:blur(0.3rem)">
+                  <div class="overlay-text">Pending</div>
+                </div>
+                <% }else{ %>
+                  <img class="img-fluid" crossorigin="anonymous" src="<%= pet.images[0].url%>">
+               <% } %>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%= pet.name %></h5>
+              <p class="card-text text-muted petId" id=""><%= pet._id %>  </p>
+              <p class="card-text">
+                <small class="text-muted">age: <%= pet.age %></small>
+              <p class="card-text"><%= pet.description %></p>
+              <a href="/pets/<%= pet._id%>" class="btn btn-success">view details</a>
+              <button class="btn btn-warning remove-btn" id="">unmark</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+  </div>
+    
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+  console.log(1)
+    const petIds = document.querySelectorAll(".petId")
+    // console.log(petIds[0].innerText)
+    const removeButtons = document.querySelectorAll(".remove-btn")
+    removeButtons.forEach((btn, index) => {
+      btn.addEventListener('click',()=>{
+        console.log("clicked")
+        const petId = petIds[index].innerText
+        console.log(petId)
+
+
+        axios.delete(`/users/list/${petId}`)
+          .then(result=>{
+            console.log(result.data)
+          }).catch(error=>{
+            console.log(error)
+          })
+
+      })      
+      
+    });
+
+  </script>

@@ -1,0 +1,59 @@
+.navbar{
+  background-color:#f4a261;
+}
+.footer{
+  background-color: #f4a261
+}
+body{
+  background-color: rgba(244, 162, 97, .3);
+}
+.card{
+  background-color: rgba(255, 255, 255, .5);
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background-color: rgba(0, 0, 0, 0.3); */
+  color: white;
+  padding: 10px;
+  font-size: 3rem;
+  border-radius: 5px;
+}
+
+
+ /* 心形 */
+ input[type="checkbox"] {
+  display: none;
+}
+.toggleMark {
+  cursor: pointer;
+  font-size: 24px;
+}
+.fa-heart:before {
+  content: "\f004";
+  color: grey;
+}
+
+/* 选中状态 */
+#toggleMark:checked + .toggleMark .fa-heart:before {
+  content: "\f004";
+  color: rgb(247, 72, 102);
+}
+
+.personal .navbar-text{
+  margin-right: 10px;
+  margin-bottom: 0px;
+}
+
+.personal .nav-link{
+  border-left:2px solid #d7813b;
+}

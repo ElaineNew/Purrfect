@@ -1,0 +1,41 @@
+<nav class="navbar sticky-top navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Purrfect</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Adopt
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/pets/cats">Cat</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/pets/dogs">Dog</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/pets/others">Small Animal</a></li>
+            <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/pets">All Pets</a></li>
+          </ul>
+        </li>
+        <a class="nav-link" href="/volunteers">Volunteer</a>
+        <a class="nav-link" href="/donate">Donate</a>
+      </div>
+
+      <div class="navbar-nav personal">   
+        <% if(!currentUser){ %>
+        <p class="navbar-text">Please sign in:)</p>
+        <a class="nav-link" href="/users/register">Sign Up</a>
+        <a class="nav-link" href="/users/login">Sign In</a>
+        <% } else{ %>
+          <p class="navbar-text">Hello, <%= currentUser.username %>!</p>
+          <a class="nav-link" href = "/users/list">my list</a>
+          <a class="nav-link" href = "/adoptions/manage">View Adotions</a>
+          <a class="nav-link" href="/users/logout">Log Out</a>
+        <% } %>
+    </div>
+    </div>
+  </div>
+</nav>

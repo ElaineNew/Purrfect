@@ -1,0 +1,131 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="d-flex justify-content-between mb-3">
+<h1 >Manage Adoptions</h1>
+<div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-warning filter">view all</button>
+  <button type="button" class="btn btn-warning filter">pending</button>
+  <button type="button" class="btn btn-warning filter">accepted</button>
+  <button type="button" class="btn btn-warning filter">rejected</button>
+</div>
+</div>
+
+
+<div>
+  <% for(let adoption of adoptions) {%>
+    <div class="card <%= adoption.status %>"  mb-3>
+      <div class="row">
+
+        <% if(adoption.status === "accepted"||adoption.status === "rejected"){ %>
+        <div class="col-md-4 image-container">
+          <img class="img-fluid" src="<%= adoption.pet.images[0].url%>"  style = "filter:blur(0.3rem)">
+          <div class="overlay-text"><%= adoption.status %></div>
+        </div>
+        <% }else{ %>
+          <div class="col-md-4">
+            <img class="img-fluid" src="<%= adoption.pet.images[0].url%>">
+          </div>
+          <% } %>
+
+        <div class="col-md-8">
+          <div class="card-body">
+            <% if(adoption.pet){ %>
+            <h5 class="card-title">Pet name: <%= adoption.pet.name %></h5>
+          <% } %>
+
+            <p class="text-muted">adoption id: <%= adoption._id %></p>
+            <p class="text-muted status"><%= adoption.status %></p>
+            <h5>Adopter's Information</h5>
+            <p class="card-title"> name: <%= adoption.name %></p>
+            <p class="card-title"> job: <%= adoption.job %></p>
+            <p class="card-title"> age: <%= adoption.age %></p>
+            <p class="card-title"> email: <%= adoption.email %></p>
+            <p class="card-title"> phone: <%= adoption.phone %></p>
+
+            <h5>Adopter's Message</h5>
+            <p class="card-text"><%= adoption.message %></p>
+
+
+            <form class="btn" action="/adoptions/<%=adoption._id%>/approve" class="mt-1" method="post">
+              <button class="btn btn-success">Approve</button>
+              <!-- 点击之后发送patch请求把申请状态改成approved，pet状态改为adopted） -->
+            </form>
+            <form class="btn" action="/adoptions/<%=adoption._id%>/reject"  class="mt-1" method="post">
+              <button class="btn btn-warning"  style="color: white;">Reject</button>
+              <!-- 点击之后发送patch请求把申请状态改成rejected pet状态改为available -->
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const groupBtns = window.document.getElementsByClassName("filter");
+  const acceptedAps = window.document.getElementsByClassName("accepted");
+  const rejectAps = window.document.getElementsByClassName("rejected");
+  const pendingAps = window.document.getElementsByClassName("pending");
+
+  window.onload = function(){
+  let option = 0;
+  for(let i = 0; i < groupBtns.length; i++){
+    const btn = groupBtns[i];
+    btn.addEventListener("click",()=>{
+      option = i;
+      console.log("i = "+i)
+      console.log("option = "+option)
+
+  if(option === 0){
+    console.log("Executing1")
+    //show all
+    for(let j =0; j <pendingAps.length; j++){
+      pendingAps[j].style.display = "block";
+    }
+    for(let j =0; j <acceptedAps.length; j++){
+      acceptedAps[j].style.display = "block";
+    }
+    for(let j =0; j <rejectAps.length; j++){
+      rejectAps[j].style.display = "block";}
+  }else if(option === 1){
+    console.log("Executing1")
+        //only show pending
+    for(let j =0; j <pendingAps.length; j++){
+      pendingAps[j].style.display = "block";
+    }
+    for(let j =0; j <acceptedAps.length; j++){
+      acceptedAps[j].style.display = "none";
+    }
+    for(let j =0; j <rejectAps.length; j++){
+      rejectAps[j].style.display = "none";}
+  }else if(option === 2){
+    console.log("Executing2")
+
+    //only show accepted
+    for(let j =0; j <pendingAps.length; j++){
+      pendingAps[j].style.display = "none";
+    }
+    for(let j =0; j <acceptedAps.length; j++){
+      acceptedAps[j].style.display = "block";
+    }
+    for(let j =0; j <rejectAps.length; j++){
+      rejectAps[j].style.display = "none";
+    }
+  }else if(option === 3){
+    console.log("Executing3")
+
+    //onli show accepted
+    for(let j =0; j <pendingAps.length; j++){
+      pendingAps[j].style.display = "none";
+    }
+    for(let j =0; j <acceptedAps.length; j++){
+      acceptedAps[j].style.display = "none";
+    }
+    for(let j =0; j <rejectAps.length; j++){
+      rejectAps[j].style.display = "block";}
+} 
+    })
+  }
+} 
+</script>

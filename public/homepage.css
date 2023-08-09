@@ -1,0 +1,57 @@
+html{
+  background-color: rgba(244, 162, 97, .5);
+}
+.navbar{
+background-color: #f4a261
+}
+
+.personal .navbar-text{
+  margin-right: 10px;
+  margin-bottom: 0px;
+}
+
+.personal .nav-link{
+  border-left:2px solid #dd8d4c;
+}
+
+
+main{
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.homepage-pic{
+  width: 100%;
+}
+.slogan{
+  display: block;
+  position: absolute;
+  left: 5%;
+  top: 30%;
+  transform: translate(0,-50%);
+  font-size: 4rem;
+  font-weight: 900;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: rgb(255,255,255);
+
+}
+.adopt-btn{
+  position: absolute;
+  display: block;
+  left: 5%;
+  bottom: 15%;
+  transform: translate(0, -50%);
+  font-size: 1.5rem;
+  background-color: #f4a261;
+  border-radius: 30%;
+
+}
+.adopt-btn:hover{
+  color: white;
+  background-color: rgba(42, 157, 143,.5);
+  transition: 0.5s;
+}
+.footer{
+  background-color: #f4a261
+}

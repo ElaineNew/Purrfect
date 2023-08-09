@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purrfect</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<link rel="stylesheet" href="/public/boilerplate.css">
+<link rel="stylesheet" href="/public/custom.scss">
+<link rel="icon" href="/public/loginImage/purrfect-01.png" type="image/x-icon">
+
+</head>
+
+<body class="d-flex flex-column vh-100">
+  <%- include('../partials/navbar') %>
+  <main class="container mt-5">
+    <%- include('../partials/flash') %>
+    <%- body -%>
+  </main>
+  <%- include('../partials/footer') %>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="/public/validateForms.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+  //login
+  const usernameField = document.getElementById('username')
+  const imageField = document.getElementById('image')
+  const passwordField = document.getElementById('password')
+  const togglePassword = document.getElementById('togglePassword')
+
+
+  if(usernameField){
+  usernameField.addEventListener('input',function(){
+    console.log('inputing')
+    const inputLength = usernameField.value.length
+    if(inputLength <4){
+      imageField.style.backgroundImage= "url('/public/loginImage/purrfect-02.png')"
+    } else if(inputLength < 7){
+      imageField.style.backgroundImage= "url('/public/loginImage/purrfect-04.png')"
+    } else {
+      imageField.style.backgroundImage= "url('/public/loginImage/purrfect-03.png')" 
+    }
+  })
+}
+
+if(passwordField){
+  passwordField.addEventListener('click', function(){
+    if(!togglePassword.checked){
+    imageField.style.backgroundImage= "url('/public/loginImage/purrfect-05.png')" }
+  })
+}
+
+if(togglePassword){
+  togglePassword.addEventListener('change', function(){
+    if(togglePassword.checked){
+      passwordField.type = 'text'
+    imageField.style.backgroundImage= "url('/public/loginImage/purrfect-06.png')" 
+    } else{
+      passwordField.type = 'password'
+    imageField.style.backgroundImage= "url('/public/loginImage/purrfect-05.png')" 
+    }
+  })
+}
+
+
+
+</script>
+
+</body>
+</html>

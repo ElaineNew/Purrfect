@@ -1,0 +1,114 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div id="carouselExample" class="carousel slide">
+              <div class="carousel-inner" style="height: 400px">
+                <% for(let img of pet.images){ %>
+                <div class="carousel-item active">
+                  <img src="<%= img.url%>" crossorigin="anonymous" class="d-block w-100" alt="pics">
+                </div>
+                <% } %>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= pet.name %></h5> 
+
+      <!-- 心形 -->
+      <input type="checkbox" id = "toggleMark" <%= isMarked  %> >
+      <label for="toggleMark" class="toggleMark">
+        <i class = "fas fa-heart"></i> <p id="markInfo" class="text text-muted" style="display: inline;"></p>
+      </label>
+
+          <p>Updated by: <%= pet.owner.username %>  </p>
+          <p class="card-text text-muted">Pet Id:  </p>
+          <p class="card-text text-muted" id="petId"><%= pet._id %>  </p>
+          <p class="card-text text-muted">Age: <%= pet.age %></p>
+          <p class="card-text text-muted">Breed: <%= pet.breed %></p>
+          <p class="card-text text-muted">weight: <%= pet.weight %>lb</p>
+          <p class="card-text"><%= pet.description %></p>
+          <%if(pet.status !== "adopted"||pet.status !== "pending"){%>
+          <form class="btn" action="/pets/<%= pet._id %>/adopt" method="get">
+            <button class="btn" style="color:white; background-color: pink">Adopt</button>
+          </form>
+          <% } %>
+          <% if(currentUser && currentUser.isAdministrator&&currentUser.equals(pet.owner)&& pet.status === "available"){ %>
+          <a href="/pets/<%= pet._id %>/edit" class="btn btn-success">Edit</a>
+          
+          <form class="btn" action="/pets/<%= pet._id %>?_method=DELETE" method="post">
+            <button class="btn btn-danger">Delete</button>
+          </form>
+          <% } %>
+          <a href="/pets/<%= pet.category%>s" class="btn btn-warning" style="color: white;">Return</a>
+        </div>
+      </div>
+    </div>
+</div>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/5b7196f291.js" crossorigin="anonymous"></script>
+<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+ //mark pet 
+  const mark = document.getElementById('toggleMark')
+  const petId = document.getElementById("petId").innerText
+  const markInfo = document.getElementById("markInfo")
+
+  axios.defaults.baseURL = 'http://localhost:3000';
+
+  window.onload = function(){
+    if(!mark.checked){
+      markInfo.innerText = "Add to My List?"
+
+    }
+    if(mark.checked){
+      markInfo.innerText = "Added"
+    }
+  }
+
+  mark.addEventListener('change', function(){
+    if(!mark.checked){
+      console.log(markInfo.innerText)
+      markInfo.innerText = "Add to My List?"
+      console.log(markInfo.innerText)
+
+      axios.delete(`/users/list/${petId}`)
+      .then(result=>{
+        console.log(result.data)
+      }).catch(error=>{
+        console.log(error)
+      })
+    }
+
+    //现在可以加入宠物到清单， 接下来要：1. 显示是否已经勾选 2. 取消勾选将移出清单 3. 增加申请按钮
+    if(mark.checked){
+      console.log(markInfo.innerText)
+      markInfo.innerText = "Added"
+      console.log(markInfo.innerText)
+
+      axios.post('/users/list',{petId})
+      .then(response=>{
+        /* if (response.status >= 300 && response.status < 400 && response.headers.location) {
+          window.location.href = response.headers.location;
+        } */
+        console.log(response.data)
+      }).catch(error=>{
+        console.log(error)
+      })
+  
+    }
+  })
+
+</script>
+
+</body>
+</html>
+

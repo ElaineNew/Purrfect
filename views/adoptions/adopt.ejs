@@ -1,0 +1,42 @@
+<% layout('layouts/boilerplate') -%>
+   <h1 class="text-center">Adopt Pet</h1>
+   <div class="col-6 offset-3">
+     <form action="/pets/<%= pet.id %>/adopt" method="post" novalidate class="needs-validation">
+      <h3>Pet name: <%= pet.name %></h3>
+    
+      <div class="mb-3">
+        <label class="form-label" for="name">your name:</label>
+        <input class="form-control" type="text" name="adopter[name]" id="name" required>
+      </div>
+    
+      <div class="mb-3">
+        <label class="form-label" for="age">your age:</label>
+        <input class="form-control" type="text" name="adopter[age]" id="age" required>
+      </div>  
+    
+      <div class="mb-3">
+        <label class="form-label" for="job">your job:</label>
+        <input class="form-control" type="text" name="adopter[job]" id="job" required>
+      </div>
+    
+      <div class="mb-3">
+        <label class="form-label" for="email">your email:</label>
+        <input class="form-control" type="email" name="adopter[email]" id="email" required>
+      </div>
+    
+      <div class="mb-3">
+        <label class="form-label" for="phone">your phone:</label>
+        <input class="form-control" type="number" name="adopter[phone]" id="phone" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="message">leave a message:</label>
+        <textarea class="form-control" type="text" name="adopter[message]" id="message" required></textarea>
+      </div>
+    
+        <button class="btn btn-success mt-3">Submit</button>
+        <a href="/pets" class="btn btn-warning mt-3">Cancel</a>
+      </form>
+       
+   </div>
+   

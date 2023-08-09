@@ -1,0 +1,52 @@
+<% layout('layouts/boilerplate') -%>
+
+<h1 class="text-center">New Pet</h1>
+<div class="col-6 offset-3">
+  <form action="/pets" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
+    <div class="mb-3">
+     <label class="form-label" for="category">category:</label>
+     <select class="form-select" aria-label="Default select example" name="pet[category]" id="category">
+      <option selected>Choose the category</option>
+      <option value="cat">cat</option>
+      <option value="dog">dog</option>
+      <option value="other">other</option>
+     </select>
+   </div>
+ 
+   <div class="mb-3">
+     <label class="form-label" for="name">name:</label>
+     <input class="form-control" type="text" name="pet[name]" id="name" required>
+   </div>
+ 
+   <div class="mb-3">
+     <label class="form-label" for="age">age:</label>
+     <input class="form-control" type="text" name="pet[age]" id="age" required>
+   </div>  
+ 
+   <div class="mb-3">
+     <label class="form-label" for="weight">weight:</label>
+     <div class="input-group">
+       <input class="form-control" type="text" name="pet[weight]" id="weight" placeholder="0.0" required>
+       <span class="input-group-text" id="weight label">lb</span>
+     </div>
+   </div>
+ 
+   <div class="mb-3">
+    <label class="form-label" for="images">images:</label>
+    <input type="file" class="form-control" name = "images" id="images" multiple>
+  </div>
+     
+   <div class="mb-3">
+     <label class="form-label" for="description">description:</label>
+     <textarea class="form-control" type="text" name="pet[description]" id="description" required></textarea>
+   </div>
+ 
+     <button class="btn btn-success mt-3">Submit</button>
+     <a href="/pets" class="btn btn-warning mt-3">Cancel</a>
+   </form>
+    
+</div>
+
+
+
+

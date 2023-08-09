@@ -1,0 +1,51 @@
+
+<% layout('layouts/boilerplate') -%>
+
+<% if(currentUser && currentUser.isAdministrator){ %>
+
+<div>
+  <h1>All Pets <a href="/pets/new" class="btn btn-success">Add a Pet</a> </h1>
+</div> 
+<% } %>
+<div>
+    <% for(let pet of pets) {%>
+      <!-- <div class="card col-xl-6" mb-3> -->
+        <div class="card col-md" mb-3>
+        <div class="row">
+          <div class="col-md-4">
+            <% if(pet.status === "adopted"){ %>
+          <div class="image-container">
+            <img class="img-fluid" crossorigin="anonymous" src="<%= pet.images[0].url%>" style = "filter:blur(0.3rem)">
+            <div class="overlay-text">Adopted</div>
+          </div>
+          <% }else if(pet.status == "pending"){ %>
+            <div class="image-container">
+              <img class="img-fluid" crossorigin="anonymous" src="<%= pet.images[0].url%>" style = "filter:blur(0.3rem)">
+              <div class="overlay-text">Pending</div>
+            </div>
+            <% }else{ %>
+              <img class="img-fluid" crossorigin="anonymous" src="<%= pet.images[0].url%>">
+           <% } %>
+
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%= pet.name %></h5>
+              <p class="card-text">
+                <small class="text-muted">age: <%= pet.age %></small>
+              <p class="card-text"><%= pet.description %></p>
+              <a href="/pets/<%= pet._id%>" class="btn btn-success">view details</a>
+
+            <% if(currentUser && currentUser.isAdministrator&&currentUser.equals(pet.owner) && pet.status === "available"){ %>
+              <form class="btn" action="/pets/<%= pet._id %>?_method=DELETE" class="mt-1" method="post">
+                <button class="btn btn-warning">delete pet</button>
+              </form>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+  </div>
+    
+
