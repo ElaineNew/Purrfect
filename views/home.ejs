@@ -23,14 +23,85 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       <% } %>
+
   <main>
-    
-    <img src="/public/homepage2.jpg" alt="homepage-pic" class="homepage-pic"/>
-    <p class="slogan">Make Your Life Purrfect</p>
-    <a href="/pets" class="btn adopt-btn"> Get A Pet Now</a>
+    <div class="banner">
+      <div class="d-none d-md-block">
+        <img src="/public/homepage2.jpg" alt="homepage-pic" class="homepage-pic"/>
+        <p class="slogan">Make Your Life Purrfect</p>
+        <a href="/pets" class="btn adopt-btn"> Get A Pet Now</a>
+      </div>
+
+      <!-- mobile -->
+      <div class="d-md-none">
+        <img src="/public/homepage2.jpg" alt="homepage-pic" class="homepage-pic"/>
+        <p class="mobile-slogan">Make Your Life Purrfect</p>
+        <a href="/pets" class="btn mobile-adopt-btn"> Get A Pet Now</a>
+      </div>
+    </div>
+
+
+    <!-- web heros -->
+    <div class='d-none d-md-block'>
+      <div class='row g-0 mt-2'>
+          <div class='col-sm-6 col-md-6'>
+              <img src="../public/homepage1.jpeg" alt="#">
+
+          </div>
+          <div class='col-4 col-md-4 container d-flex justify-content-center align-items-center'>
+              <div class='ml-2'>
+                  <h1>✨ Experience Love at First Purr ✨</h1>
+                  <p class='lead'>
+                    At Purrfect, we're all about cuddles, wagging tails, and endless purring. Our shelter is a magical place where pets find their happily ever after, and you could be the key to their fairy-tail ending.
+                  </p>
+              </div>
+          </div>
+      </div>
+      <div class='row g-0'>
+          <div class='col-4 col-md-4 container d-flex 
+              justify-content-center align-items-center'>
+              <div class='ml-2'>
+                  <h1>🏡 Adopt, Don't Shop 🏡</h1>
+                  <p class='lead'>
+                    When you adopt from Purrfect Pet Shelter, you're not just getting a pet; you're gaining a family member. Our matchmaking experts will help you find your furry soulmate, ensuring a lifetime of love and laughter.
+                  </p>
+              </div>
+          </div>
+          <div class='col-sm-6 col-md-6'>
+              <img src="../public/activity.jpeg" alt="#">
+          </div>
+      </div>
+    </div>
+
+    <!-- Mobile Heros -->
+    <div class='d-md-none'>
+      <div class='container'>
+          <div class='m-2'>
+              <img src="../public/homepage1.jpeg" alt="#">
+
+              <div class='mt-2'>
+                  <h1>✨ Experience Love at First Purr ✨</h1>
+                  <p class='lead'>
+                    At Purrfect, we're all about cuddles, wagging tails, and endless purring. Our shelter is a magical place where pets find their happily ever after, and you could be the key to their fairy-tail ending.
+                  </p>
+            
+              </div>
+          </div>
+          <div class='m-2'>
+              <img src="../public/activity.jpeg" alt="#">
+
+              <div class='mt-2'>
+                  <h1>🏡 Adopt, Don't Shop 🏡</h1>
+                  <p class='lead'>
+                    When you adopt from Purrfect Pet Shelter, you're not just getting a pet; you're gaining a family member. Our matchmaking experts will help you find your furry soulmate, ensuring a lifetime of love and laughter.
+                  </p>
+              </div>
+          </div>
+      </div>
+    </div>
   </main>
- 
-  <footer class="footer py-3 mt-auto">
+
+<footer class="footer py-3 mt-auto">
     <div class="container">
         <span class="text-muted ">&copy;Purrfect 2023</span>
     </div>

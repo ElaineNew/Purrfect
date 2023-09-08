@@ -14,11 +14,13 @@ background-color: #f4a261
   border-left:2px solid #dd8d4c;
 }
 
-
-main{
+.banner{
   display: flex;
   width: 100%;
   position: relative;
+}
+img{
+  width: 100%;
 }
 
 .homepage-pic{
@@ -28,9 +30,9 @@ main{
   display: block;
   position: absolute;
   left: 5%;
-  top: 30%;
+  top: 35%;
   transform: translate(0,-50%);
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 900;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   color: rgb(255,255,255);
@@ -40,7 +42,7 @@ main{
   position: absolute;
   display: block;
   left: 5%;
-  bottom: 15%;
+  bottom: 25%;
   transform: translate(0, -50%);
   font-size: 1.5rem;
   background-color: #f4a261;
@@ -54,4 +56,32 @@ main{
 }
 .footer{
   background-color: #f4a261
+}
+
+
+
+.mobile-slogan{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  width: 600px;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%,-50%);
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: rgb(255,255,255);
+
+}
+.mobile-adopt-btn{
+  position: absolute;
+  display: block;
+  left: 50%;
+  bottom: 10%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  background-color: #f4a261;
+  border-radius: 30%;
+
 }
