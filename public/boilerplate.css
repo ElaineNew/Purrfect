@@ -31,7 +31,7 @@ body{
 
 
  /* 心形 */
- input[type="checkbox"] {
+ .heartCheckBox {
   display: none;
 }
 .toggleMark {
