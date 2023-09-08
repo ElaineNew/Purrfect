@@ -62,6 +62,7 @@ const store = MongoStore.create({
   touchAfter:24*60*60,
   crypto:{
     secret: 'thisisabadsecret',
+    
   }
 })
 
@@ -119,7 +120,7 @@ const fontSrcUrls = ["https://res.cloudinary.com/diufwxakx/",
  "https://use.fontawesome.com/",
  "https://ka-f.fontawesome.com"];
 
-app.use(
+/* app.use(
   helmet.contentSecurityPolicy({
       directives: {
           defaultSrc: [],
@@ -141,7 +142,7 @@ app.use(
           childSrc: ["blob:"]
       }
   })
-);
+); */
 
 
 //use passport to authenticate user

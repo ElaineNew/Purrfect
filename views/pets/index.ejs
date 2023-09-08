@@ -33,7 +33,7 @@
               <h5 class="card-title"><%= pet.name %></h5>
               <p class="card-text">
                 <small class="text-muted">age: <%= pet.age %></small>
-              <p class="card-text"><%= pet.description %></p>
+              <p class="card-text"><%= pet.description.length > 60? pet.description.slice(0,60)+ "..." : pet.description%></p>
               <a href="/pets/<%= pet._id%>" class="btn btn-success">view details</a>
 
             <% if(currentUser && currentUser.isAdministrator&&currentUser.equals(pet.owner) && pet.status === "available"){ %>
