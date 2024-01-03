@@ -2,13 +2,10 @@ if (process.env.NODE_ENV !== "production") {
   require('dotenv').config();
 }
 
-
 const express = require('express');
 const app = express();
 
-
 const path = require('path');
-// const { v4:uuid } = require('uuid');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate')
 const ExpressError = require('./utils/ExpressError')
@@ -22,15 +19,11 @@ const cookieParser = require('cookie-parser') //don't need for session
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash')
-const helmet = require('helmet');
 const dbUrl = process.env.DB_URL;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));//accept any type of form data
 //false: only string or arrays
-
-
-
 
 app.use(methodOverride('_method'))
 
@@ -43,13 +36,10 @@ const passport = require('passport')
 const passportLocal = require('passport-local');
 const User = require('./Models/users');
 
-
-// mongoose.connect('mongodb://127.0.0.1:27017/purrfect', {
-  mongoose.connect(dbUrl, {
+ mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, "connection error:"))
@@ -62,7 +52,6 @@ const store = MongoStore.create({
   touchAfter:24*60*60,
   crypto:{
     secret: 'thisisabadsecret',
-    
   }
 })
 
@@ -73,7 +62,7 @@ store.on("error", function(e){
 //use session
 const sessionConfig = {
   name:"session",
-  secret: 'thisismysecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized:true,
   cookie: {
@@ -85,65 +74,6 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig))
 app.use(flash())
-
-
-const scriptSrcUrls = [
-  "https://stackpath.bootstrapcdn.com/",
-  "https://api.tiles.mapbox.com/",
-  "https://api.mapbox.com/",
-  "https://kit.fontawesome.com/",
-  "https://cdnjs.cloudflare.com/",
-  "https://cdn.jsdelivr.net/",
-  "https://res.cloudinary.com/diufwxakx/",
-
-];
-const styleSrcUrls = [
-  "https://kit-free.fontawesome.com/",
-  "https://stackpath.bootstrapcdn.com/",
-  "https://api.mapbox.com/",
-  "https://api.tiles.mapbox.com/",
-  "https://fonts.googleapis.com/",
-  "https://use.fontawesome.com/",
-  "https://ka-f.fontawesome.com",
-  "https://cdn.jsdelivr.net/",
-  "https://res.cloudinary.com/diufwxakx/"
-];
-const connectSrcUrls = [
-  "https://*.tiles.mapbox.com",
-  "https://api.mapbox.com",
-  "https://events.mapbox.com",
-  "https://use.fontawesome.com/",
-  "https://ka-f.fontawesome.com",
-  "https://res.cloudinary.com/diufwxakx/"
-];
-const fontSrcUrls = ["https://res.cloudinary.com/diufwxakx/",
- "https://use.fontawesome.com/",
- "https://ka-f.fontawesome.com"];
-
-/* app.use(
-  helmet.contentSecurityPolicy({
-      directives: {
-          defaultSrc: [],
-          connectSrc: ["'self'", ...connectSrcUrls],
-          scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
-          styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
-          workerSrc: ["'self'", "blob:"],
-          objectSrc: [],
-          imgSrc: [
-              "'self'",
-              "blob:",
-              "data:",
-              "https://res.cloudinary.com/diufwxakx/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
-              "https://source.unsplash.com/random/",
-              "https://images.unsplash.com/photo-1559521783-1d1599583485?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
-          ],
-          fontSrc: ["'self'", ...fontSrcUrls],
-          mediaSrc: ["https://res.cloudinary.com/diufwxakx/"],
-          childSrc: ["blob:"]
-      }
-  })
-); */
-
 
 //use passport to authenticate user
 app.use(passport.initialize())
@@ -157,13 +87,7 @@ passport.deserializeUser(User.deserializeUser())
 app.engine('ejs', ejsMate)
 app.set("view engine","ejs");
 
-app.use(cookieParser('this is my signed secret'))
-
-
-/* app.use(bodyParser.urlencoded({
-  extended: true
-})) */
-
+app.use(cookieParser(process.env.COOKIE_SECRET))
 
 app.use((req, res, next) => {
   res.locals.success = req.flash('success')
@@ -172,6 +96,7 @@ app.use((req, res, next) => {
   next()
 })
 
+// use petRoutes to handle all request base /pets
 app.use('/pets', petRoutes)
 app.use('/users', userRoutes)
 app.use('/volunteers', volunteerRoutes)
@@ -182,10 +107,12 @@ app.get("/",(req, res)=>{
   res.render('home.ejs');
 })
 
+//handle page not found
 app.all("*",(req, res, next)=>{
   next(new ExpressError(`Page Not Found`, 404))
 })
 
+//handle error
 app.use((err, req, res, next)=>{
   const { statusCode = 500} = err
   if(!err.message) message = 'Something went wrong'
